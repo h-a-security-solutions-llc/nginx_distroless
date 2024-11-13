@@ -6,7 +6,8 @@ RUN mkdir /tmp/required_libs -p && \
     find /lib/ -name libpcre2-8.so.0 -exec cp {} /tmp/required_libs/ \; && \
     find /lib/ -name libssl.so.3 -exec cp {} /tmp/required_libs/ \; && \
     find /lib/ -name libcrypto.so.3 -exec cp {} /tmp/required_libs/ \; && \
-    find /lib/ -name libz.so.1 -exec cp {} /tmp/required_libs/ \;
+    find /lib/ -name libz.so.1 -exec cp {} /tmp/required_libs/ \; && \
+    rm /etc/nginx/conf.d/default.conf
 
 # Base image for final runtime
 FROM gcr.io/distroless/base-debian12:nonroot AS final
