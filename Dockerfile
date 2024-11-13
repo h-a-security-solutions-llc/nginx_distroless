@@ -7,7 +7,7 @@ RUN mkdir /tmp/required_libs -p && \
     find /lib/ -name libssl.so.3 -exec cp {} /tmp/required_libs/ \; && \
     find /lib/ -name libcrypto.so.3 -exec cp {} /tmp/required_libs/ \; && \
     find /lib/ -name libz.so.1 -exec cp {} /tmp/required_libs/ \; && \
-    rm /etc/nginx/conf.d/default.conf
+    rm -f /etc/nginx/conf.d/default.conf
 
 # Base image for final runtime
 FROM gcr.io/distroless/base-debian12:nonroot AS final
@@ -23,7 +23,7 @@ COPY --chown=nonroot:nonroot --from=builder /var/log/nginx /var/log/nginx
 
 # Custom configuration files with ownership change
 COPY --chown=nonroot:nonroot nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --chown=nonroot:nonroot nginx/default.conf /etc/nginx/conf.d/default.conf
+# COPY --chown=nonroot:nonroot nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # HTML files with ownership change
 COPY --chown=nonroot:nonroot webroot/50x.html /usr/share/nginx/html/50x.html
